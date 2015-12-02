@@ -37,5 +37,14 @@
 - name: Change ownership of WordPress installation
   file: path=/var/www/html/wordpress/ owner=wordpress group=wordpress state=directory recurse=yes
 
+- name: Download WP-CLI
+  get_url: url=https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar dest=/tmp/wp-cli.phar
+
+- name: Add WP-CLI to bin
+  command: mv /tmp/wp-cli.phar /usr/local/bin/wp creates=/usr/local/bin/wp
+
+- name: Make WP-CLI executable
+  file: path=/usr/local/bin/wp owner=ubuntu group=ubuntu mode=550
+
 - name: Start php-fpm Service
   service: name=php5-fpm state=started enabled=yes

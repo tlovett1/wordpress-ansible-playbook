@@ -72,6 +72,11 @@ define('WPLANG', '');
 define('WP_DEBUG', false);
 
 /**
+ * Enable caching for Memcached
+ */
+define('WP_CACHE', true);
+
+/**
  * Setup Memcached for caching
  */
 global $memcached_servers;

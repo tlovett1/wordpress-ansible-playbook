@@ -12,3 +12,7 @@
 - name: Copy php-fpm configuration
   template: src=wordpress.conf dest=/etc/php5/fpm/pool.d
   notify: restart php5-fpm
+
+- name: php.ini - Change max upload size to 10M
+  replace: dest=/etc/php5/fpm/php.ini regexp='^upload_max_filesize = 2M$' replace='upload_max_filesize = 10M'
+  notify: restart php5-fpm
