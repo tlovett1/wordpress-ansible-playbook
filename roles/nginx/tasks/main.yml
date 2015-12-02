@@ -1,0 +1,15 @@
+---
+- name: Install nginx
+  apt: name=nginx state=latest
+
+- name: Copy nginx configuration for wordpress
+  template: src=wordpress dest=/etc/nginx/sites-available/wordpress force=no
+  notify: restart nginx
+
+- name: Create symlink for wordpress configuration
+  file: src=/etc/nginx/sites-available/wordpress dest=/etc/nginx/sites-enabled/wordpress state=link
+  notify: reload nginx
+
+- name: Delete default
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  notify: reload nginx

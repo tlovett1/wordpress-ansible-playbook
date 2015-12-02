@@ -1,0 +1,10 @@
+---
+wp_version: 4.3.1
+
+wp_db_name: wordpress 
+wp_db_user: wordpress
+wp_db_password: secret
+
+mysql_port: 3306
+
+server_hostname: www.example.com

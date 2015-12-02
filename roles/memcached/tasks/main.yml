@@ -1,0 +1,6 @@
+---
+- name: Install memcached
+  apt: name=memcached state=latest
+
+- name: Install php memcache
+  apt: name=php5-memcache state=latest

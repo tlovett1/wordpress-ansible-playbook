@@ -1,0 +1,14 @@
+---
+- name: Install php-fpm
+  apt: name=php5-fpm state=latest
+
+- name: Install php-fpm mysql
+  apt: name=php5-mysql state=latest
+
+- name: Disable default pool
+  command: mv /etc/php5/fpm/pool.d/www.conf /etc/php5/fpm/pool.d/www.disabled creates=/etc/php5/fpm/pool.d/www.disabled
+  notify: restart php5-fpm
+
+- name: Copy php-fpm configuration
+  template: src=wordpress.conf dest=/etc/php5/fpm/pool.d
+  notify: restart php5-fpm

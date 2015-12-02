@@ -1,0 +1,9 @@
+---
+- name: Install vim
+  apt: name=vim state=latest
+
+- name: Install git
+  apt: name=git state=latest
+
+- name: Install subversion
+  apt: name=subversion state=latest

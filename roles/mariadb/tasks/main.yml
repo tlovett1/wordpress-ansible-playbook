@@ -1,0 +1,15 @@
+---
+- name: Install MariaDB package key
+  apt_key: keyserver=keyserver.ubuntu.com id=0xcbcb082a1bb943db
+
+- name: Add MariaDB source 
+  apt_repository: repo='deb http://mirror.jmu.edu/pub/mariadb/repo/5.5/ubuntu trusty main' state=present
+
+- name: Install MariaDB package
+  apt: pkg=mariadb-server state=present
+
+- name: Install Python MySQL
+  apt: pkg=python-mysqldb state=present
+
+- name: Start MariaDB Service
+  service: name=mysql state=started enabled=yes
