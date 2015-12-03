@@ -8,6 +8,7 @@
     - common
     - mariadb
     - nginx
+    - postfix
     - php-fpm
     - memcached
     - wordpress

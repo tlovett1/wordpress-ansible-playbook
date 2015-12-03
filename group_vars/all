@@ -7,5 +7,5 @@ wp_db_password: secret
 
 mysql_port: 3306
 
-server_hostname: www.example.com
+server_hostname: example.com
 dev_server_hostname: dev.example.com

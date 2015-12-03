@@ -1,0 +1,13 @@
+---
+- name: Set Postfix option hostname
+  debconf: name=postfix question="postfix/mailname" value="{{server_hostname}}" vtype="string"
+
+- name: Set Postfix option type as internet site
+  debconf: name=postfix question="postfix/main_mailer_type" value="'Internet Site'" vtype="string"
+
+- name: Install Postfix
+  apt: name=postfix state=latest
+
+- name: Install mailutils
+  apt: name=mailutils state=latest
+

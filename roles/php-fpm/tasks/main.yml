@@ -13,6 +13,12 @@
   template: src=wordpress.conf dest=/etc/php5/fpm/pool.d
   notify: restart php5-fpm
 
-- name: php.ini - Change max upload size to 10M
-  replace: dest=/etc/php5/fpm/php.ini regexp='^upload_max_filesize = 2M$' replace='upload_max_filesize = 10M'
+# Configure and secure php.ini
+
+- name: php.ini - Change max upload size to 15M
+  replace: dest=/etc/php5/fpm/php.ini regexp='^upload_max_filesize = 2M$' replace='upload_max_filesize = 15M'
+  notify: restart php5-fpm
+
+- name: php.init - Ensure php5-fpm cgi.fix_pathinfo=0
+  lineinfile: dest=/etc/php5/fpm/php.ini regexp='^(.*)cgi.fix_pathinfo=' line=cgi.fix_pathinfo=0
   notify: restart php5-fpm
