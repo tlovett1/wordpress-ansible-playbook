@@ -6,6 +6,10 @@
   template: src=wordpress dest=/etc/nginx/sites-available/wordpress force=no
   notify: restart nginx
 
+- name: Copy nginx general configuration
+  template: src=nginx.conf dest=/etc/nginx/nginx.conf force=no
+  notify: restart nginx
+
 - name: Create symlink for wordpress configuration
   file: src=/etc/nginx/sites-available/wordpress dest=/etc/nginx/sites-enabled/wordpress state=link
   notify: reload nginx
