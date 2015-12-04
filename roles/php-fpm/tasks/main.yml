@@ -5,6 +5,16 @@
 - name: Install php-fpm mysql
   apt: name=php5-mysql state=latest
 
+- name: Install php dev
+  apt: name=php5-dev state=latest
+
+- name: Install php pear
+  apt: name=php-pear state=latest
+
+- name: Install xdebug (disabled)
+  shell: pecl install xdebug
+  ignore_errors: yes
+
 - name: Disable default pool
   command: mv /etc/php5/fpm/pool.d/www.conf /etc/php5/fpm/pool.d/www.disabled creates=/etc/php5/fpm/pool.d/www.disabled
   notify: restart php5-fpm
@@ -16,7 +26,11 @@
 # Configure and secure php.ini
 
 - name: php.ini - Change max upload size to 15M
-  replace: dest=/etc/php5/fpm/php.ini regexp='^upload_max_filesize = 2M$' replace='upload_max_filesize = 15M'
+  replace: dest=/etc/php5/fpm/php.ini regexp='^upload_max_filesize = .*$' replace='upload_max_filesize = 15M'
+  notify: restart php5-fpm
+
+- name: php.ini - Change memory limit to 256M
+  replace: dest=/etc/php5/fpm/php.ini regexp='^memory_limit = .*$' replace='memory_limit = 256M'
   notify: restart php5-fpm
 
 - name: php.init - Ensure php5-fpm cgi.fix_pathinfo=0

@@ -1,0 +1,28 @@
+---
+- name: Install graphviz
+  apt: name=graphviz state=latest
+
+- name: PHP | Download webgrind package
+  get_url: url=https://github.com/jokkedk/webgrind/archive/master.zip dest=/tmp/webgrind.tar.gz
+
+- name: PHP | Extract the webgrind package
+  unarchive: src=/tmp/webgrind.tar.gz dest=/var/www/html/ copy=no
+
+- name: PHP | Rename the webgrind folder
+  shell: mv /var/www/html/webgrind-master/ /var/www/html/webgrind creates=/var/www/html/webgrind/
+
+- name: PHP | Remove the webgrind-master dir
+  file: path=/var/www/html/webgrind/webgrind-master state=absent
+
+- name: Copy nginx configuration for webgrind
+  template: src=webgrind dest=/etc/nginx/sites-available/webgrind
+  notify: restart nginx
+
+- name: Create config file
+  template: src=config.php dest=/var/www/html/webgrind/config.php force=yes
+
+- name: PHP | Create the webgrind dirs
+  file: name=/var/www/html/webgrind/storage state=directory mode=0700
+
+- name: Change ownership of webgrind installation
+  file: path=/var/www/html/webgrind/ owner=wordpress group=wordpress state=directory recurse=yes

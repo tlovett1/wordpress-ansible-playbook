@@ -10,5 +10,4 @@
     - nginx
     - postfix
     - php-fpm
-    - memcached
-    - wordpress
+    - webgrind
