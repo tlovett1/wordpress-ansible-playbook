@@ -11,6 +11,18 @@
 - name: Install php pear
   apt: name=php-pear state=latest
 
+- name: Install php curl
+  apt: name=php5-curl state=latest
+
+- name: Install imagemagick
+  apt: name=imagemagick state=latest
+
+- name: Install php imagemagick
+  apt: name=php5-imagick state=latest
+
+- name: Install php xmlrpc
+  apt: name=php5-xmlrpc state=latest
+
 - name: Install xdebug (disabled)
   shell: pecl install xdebug
   ignore_errors: yes
