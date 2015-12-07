@@ -4,3 +4,4 @@
 
 - name: Install php memcache
   apt: name=php5-memcache state=latest
+  notify: restart php5-fpm
