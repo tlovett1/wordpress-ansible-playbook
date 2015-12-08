@@ -6,8 +6,8 @@
   debconf: name=postfix question="postfix/main_mailer_type" value="'Internet Site'" vtype="string"
 
 - name: Install Postfix
-  apt: name=postfix state=latest
-
-- name: Install mailutils
-  apt: name=mailutils state=latest
+  apt: name={{item}} state=latest
+  with_items:
+  	- postfix
+  	- mailutils
 

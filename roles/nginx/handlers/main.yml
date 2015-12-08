@@ -4,3 +4,7 @@
 
 - name: reload nginx
   service: name=nginx state=reloaded enabled=yes
+
+- name: stop nginx
+  service: name=nginx state=stopped enabled=yes
+

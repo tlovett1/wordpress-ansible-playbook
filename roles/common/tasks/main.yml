@@ -1,12 +1,8 @@
 ---
 - name: Install vim
-  apt: name=vim state=latest
+  apt: name={{item}} state=latest
   ignore_errors: yes
-
-- name: Install git
-  apt: name=git state=latest
-  ignore_errors: yes
-
-- name: Install subversion
-  apt: name=subversion state=latest
-  ignore_errors: yes
+  with_items:
+  	- vim
+  	- git
+  	- subversion

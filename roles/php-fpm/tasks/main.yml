@@ -1,27 +1,15 @@
 ---
 - name: Install php-fpm
-  apt: name=php5-fpm state=latest
-
-- name: Install php-fpm mysql
-  apt: name=php5-mysql state=latest
-
-- name: Install php dev
-  apt: name=php5-dev state=latest
-
-- name: Install php pear
-  apt: name=php-pear state=latest
-
-- name: Install php curl
-  apt: name=php5-curl state=latest
-
-- name: Install imagemagick
-  apt: name=imagemagick state=latest
-
-- name: Install php imagemagick
-  apt: name=php5-imagick state=latest
-
-- name: Install php xmlrpc
-  apt: name=php5-xmlrpc state=latest
+  apt: name={{item}} state=latest
+  with_items:
+    - php5-fpm
+    - php5-mysql
+    - php5-dev
+    - php5-pear
+    - php5-curl
+    - imagemagick
+    - php5-imagick
+    - php5-xmlrpc
 
 - name: Install xdebug (disabled)
   shell: pecl install xdebug

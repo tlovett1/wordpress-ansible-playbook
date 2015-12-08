@@ -10,3 +10,4 @@ mysql_port: 3306
 server_hostname: example.com
 dev_server_hostname: dev.example.com
 remote_user: root
+admin_email: email@email.com
