@@ -9,6 +9,7 @@
     - php5-curl
     - imagemagick
     - php5-imagick
+    - php5-gd
     - php5-xmlrpc
   notify: restart php5-fpm
 
