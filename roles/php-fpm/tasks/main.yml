@@ -10,6 +10,13 @@
     - imagemagick
     - php5-imagick
     - php5-xmlrpc
+  notify: restart php5-fpm
+
+- name: Enable php5 mcrypt module
+  shell: php5enmod mcrypt
+  args:
+    creates: /etc/php5/cli/conf.d/20-mcrypt.ini
+  notify: restart php5-fpm
 
 - name: Install xdebug (disabled)
   shell: pecl install xdebug

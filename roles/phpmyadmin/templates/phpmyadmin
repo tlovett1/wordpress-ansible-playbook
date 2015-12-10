@@ -1,0 +1,16 @@
+server {
+    listen       9997;
+    server_name  {{ server_hostname }};
+    server_name  {{ dev_server_hostname }};
+    root /usr/share/phpmyadmin;
+    index index.php;
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_index index.php;
+        fastcgi_pass  unix:/var/run/php5-fpm.sock;
+        fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include       fastcgi_params;
+    }
+}

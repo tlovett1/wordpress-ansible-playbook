@@ -1,0 +1,10 @@
+---
+- name: Install dbconfig-common
+  apt: pkg=dbconfig-common state=latest force=yes
+
+- name: Install phpmyadmin
+  apt: name=phpmyadmin state=latest force=yes
+
+- name: Copy nginx configuration for phpmyadmin
+  template: src=phpmyadmin dest=/etc/nginx/sites-available/phpmyadmin
+  notify: restart nginx
