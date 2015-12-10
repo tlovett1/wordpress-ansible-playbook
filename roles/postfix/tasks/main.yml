@@ -8,6 +8,6 @@
 - name: Install Postfix
   apt: name={{item}} state=latest
   with_items:
-  	- postfix
-  	- mailutils
+    - postfix
+    - mailutils
 

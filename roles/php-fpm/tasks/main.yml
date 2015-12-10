@@ -5,7 +5,7 @@
     - php5-fpm
     - php5-mysql
     - php5-dev
-    - php5-pear
+    - php-pear
     - php5-curl
     - imagemagick
     - php5-imagick

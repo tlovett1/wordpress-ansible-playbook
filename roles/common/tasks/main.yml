@@ -3,6 +3,6 @@
   apt: name={{item}} state=latest
   ignore_errors: yes
   with_items:
-  	- vim
-  	- git
-  	- subversion
+    - vim
+    - git
+    - subversion
