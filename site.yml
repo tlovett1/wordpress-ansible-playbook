@@ -13,3 +13,4 @@
     - memcached
     - wordpress
     - webgrind
+    - sftp
