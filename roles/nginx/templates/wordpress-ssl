@@ -8,7 +8,7 @@ server {
 	listen 8080;
 	listen 443 ssl;
 	ssl_certificate  /etc/letsencrypt/live/{{ server_hostname }}/cert.pem;
-	ssl_certificate_key /etc/letsencrypt/live/{{ server_hostname }}/privkey.pemy;
+	ssl_certificate_key /etc/letsencrypt/live/{{ server_hostname }}/privkey.pem;
 	ssl_session_cache shared:SSL:20m;
 	ssl_session_timeout 180m;
 	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
@@ -19,9 +19,6 @@ server {
 	ssl_trusted_certificate /etc/letsencrypt/live/{{ server_hostname }}/chain.pem;
 	resolver 8.8.8.8 8.8.4.4 valid=86400;
 	resolver_timeout 10;
-
-	ssl_stapling on;
-	ssl_stapling_verify on;
 
 	ssl_stapling on;
 	ssl_stapling_verify on;

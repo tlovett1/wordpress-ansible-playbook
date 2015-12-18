@@ -1,7 +1,7 @@
 ---
-wp_version: 4.3.1
+wp_version: 4.4
 
-wp_db_name: wordpress 
+wp_db_name: wordpress
 wp_db_user: wordpress
 wp_db_password: secret
 
@@ -11,3 +11,10 @@ server_hostname: example.com
 dev_server_hostname: dev.example.com
 remote_user: root
 admin_email: email@email.com
+
+awscli_user: ubuntu
+awscli_group: ubuntu
+awscli_bucket: backups
+
+timezone: America/New_York
+

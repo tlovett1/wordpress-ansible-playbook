@@ -1,0 +1,4 @@
+---
+- name: Install letsencrypt
+  git: repo=https://github.com/letsencrypt/letsencrypt.git dest=~/letsencrypt
+  

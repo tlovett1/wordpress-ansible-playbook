@@ -1,0 +1,11 @@
+[mysite]
+mysite.com
+
+[mysite:vars]
+server_hostname=mysite.com
+remote_user=ubuntu
+dev_server_hostname=dev.mysite.com
+wp_db_password=XXXXXXXXXXXXXXXXXX
+awscli_aws_access_key_id=XXXXXXXXXXXXXXXXXX
+awscli_aws_secret_access_key=XXXXXXXXXXXXXXXXXX
+awscli_region=us-west-2

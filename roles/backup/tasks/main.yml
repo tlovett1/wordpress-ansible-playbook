@@ -1,0 +1,32 @@
+---
+- name: Install awscli
+  pip: name=awscli state=latest
+  sudo: yes
+
+- name: Create .aws dir under user home for awscli config
+  file:
+    path=/home/{{ awscli_user }}/.aws
+    state=directory
+    owner={{ awscli_user }}
+    group={{ awscli_group }}
+    mode=0755
+
+
+- name: Copy awscli config to vm using templates
+  template:
+    src=awscli_config.j2
+    dest=/home/{{ awscli_user }}/.aws/config
+    owner={{ awscli_user }}
+    group={{ awscli_group }}
+    mode=0644
+
+- name: Copy backup script to bin
+  template:
+    src="site-backup"
+    dest="/usr/local/bin/site-backup"
+    owner={{ awscli_user }}
+    group={{ awscli_group }}
+    mode=0700
+
+- name: Add line to crontab for backup
+  cron: name="Site Backup" minute="0" hour="3" job="bash /usr/local/bin/site-backup > ~/backup" user={{ awscli_user }}

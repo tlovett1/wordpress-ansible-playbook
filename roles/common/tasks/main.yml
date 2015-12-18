@@ -1,5 +1,8 @@
 ---
-- name: Install vim
+- name: apt-get update hack
+  shell: apt-get update
+
+- name: Install utilities
   apt: name={{item}} state=latest
   ignore_errors: yes
   with_items:
@@ -7,3 +10,16 @@
     - git
     - subversion
     - unzip
+    - python-pip
+    - python-dev
+    - build-essential
+
+- name: Set timezone variables
+  copy: content="{{ timezone }}"
+        dest=/etc/timezone
+        owner=root
+        group=root
+        mode=0644
+        backup=yes
+  notify:
+    - update timezone

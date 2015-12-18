@@ -1,12 +1,12 @@
 ---
 - name: Creates directory for web files
-  file: path=/var/www/html/wordpress state=directory
+  file: path=/var/www/html state=directory
 
 - name: Download WordPress
-  get_url: url=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz dest=/var/www/html/wordpress.tar.gz
+  get_url: url=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz dest=/var/www/html/wordpress.tar.gz force=yes
 
 - name: Extract archive
-  unarchive: src=/var/www/html/wordpress.tar.gz dest=/var/www/html/ copy=no
+  unarchive: src=/var/www/html/wordpress.tar.gz dest=/var/www/html/ copy=no creates=/var/www/html/wordpress
 
 - name: Add group "wordpress"
   group: name=wordpress
@@ -35,7 +35,7 @@
   template: src=advanced-cache.php dest=/var/www/html/wordpress/wp-content
 
 - name: Change ownership of WordPress installation
-  file: path=/var/www/html/wordpress/ owner=wordpress group=wordpress state=directory recurse=yes
+  file: path=/var/www/html/wordpress/ owner=wordpress group=wordpress state=directory recurse=yes mode=0775
 
 - name: Download WP-CLI
   get_url: url=https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar dest=/tmp/wp-cli.phar
@@ -44,7 +44,7 @@
   command: mv /tmp/wp-cli.phar /usr/local/bin/wp creates=/usr/local/bin/wp
 
 - name: Make WP-CLI executable
-  file: path=/usr/local/bin/wp owner=ubuntu group=ubuntu mode=550
+  file: path=/usr/local/bin/wp owner=ubuntu group=wordpress mode=770
 
 - name: Start php-fpm Service
   service: name=php5-fpm state=started enabled=yes
