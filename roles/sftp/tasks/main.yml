@@ -1,0 +1,8 @@
+---
+- name: Create sftp default user
+  user: name=wordpress-sftp groups=wordpress state=present home=/var/www/html/wordpress
+
+- name: Copy sshd_config template
+  template: src=sshd_config dest=/etc/ssh/ force=yes
+  notify: restart sshd
+
