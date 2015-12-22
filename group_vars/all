@@ -18,3 +18,14 @@ awscli_bucket: backups
 
 timezone: America/New_York
 
+newrelic_loglevel: info
+newrelic_logfile: /var/log/newrelic/nrsysmond.log
+newrelic_proxy: False
+newrelic_ssl: "false"
+newrelic_ssl_ca_bundle: False
+newrelic_ssl_ca_path: False
+newrelic_pidfile: /var/run/newrelic/nrsysmond.pid
+newrelic_collector_host: collector.newrelic.com
+newrelic_timeout: 30
+newrelic_license_key: XXXXXXXXXXXXX
+newrelic_appname: example
