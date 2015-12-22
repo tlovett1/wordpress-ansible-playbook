@@ -9,6 +9,8 @@ This playbook deploys an optimized setup for WordPress using MariaDB, nginx, PHP
 
 * Backup - This role will backup your files and database to Amazon S3
 * Letsencrypt - This role is a work in progress. It setups LetsEncrypt for generating SSL certificates.
+* New Relic - This role sets up PHP and server apps within New Relic.
+* SFTP - This role creates a default SFTP user and sets it's home directory to be the web root.
 
 ## Example Hosts file
 
