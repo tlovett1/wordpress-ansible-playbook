@@ -1,46 +1,67 @@
 ---
+- apt_repository: repo='ppa:ondrej/php' state=present
+
 - name: Install php-fpm
   apt: name={{item}} state=latest
   with_items:
-    - php5-fpm
-    - php5-mysql
-    - php5-dev
-    - php-pear
-    - php5-curl
+    - php7.0-fpm
+    - php7.0-mbstring
+    - php7.0-mysql
+    - php7.0-dev
+    - php7.0-mcrypt
+    - php7.0-curl
     - imagemagick
-    - php5-imagick
-    - php5-gd
-    - php5-xmlrpc
-  notify: restart php5-fpm
-
-- name: Enable php5 mcrypt module
-  shell: php5enmod mcrypt
-  args:
-    creates: /etc/php5/cli/conf.d/20-mcrypt.ini
-  notify: restart php5-fpm
+    - php7.0-imagick
+    - php7.0-gd
+    - php7.0-xmlrpc
+  notify:
+    - stop php5-fpm
+    - restart php7.0-fpm
 
 - name: Install xdebug (disabled)
   shell: pecl install xdebug
   ignore_errors: yes
 
 - name: Disable default pool
-  command: mv /etc/php5/fpm/pool.d/www.conf /etc/php5/fpm/pool.d/www.disabled creates=/etc/php5/fpm/pool.d/www.disabled
-  notify: restart php5-fpm
+  command: mv /etc/php/7.0/fpm/pool.d/www.conf /etc/php/7.0/fpm/pool.d/www.disabled creates=/etc/php/7.0/fpm/pool.d/www.disabled
+  notify: restart php7.0-fpm
 
 - name: Copy php-fpm configuration
-  template: src=wordpress.conf dest=/etc/php5/fpm/pool.d
-  notify: restart php5-fpm
+  template: src=wordpress.conf dest=/etc/php/7.0/fpm/pool.d
+  notify: restart php7.0-fpm
 
 # Configure and secure php.ini
 
 - name: php.ini - Change max upload size to 15M
-  replace: dest=/etc/php5/fpm/php.ini regexp='^upload_max_filesize = .*$' replace='upload_max_filesize = 15M'
-  notify: restart php5-fpm
+  replace: dest=/etc/php/7.0/fpm/php.ini regexp='^upload_max_filesize = .*$' replace='upload_max_filesize = 15M'
+  notify: restart php7.0-fpm
 
 - name: php.ini - Change memory limit to 256M
-  replace: dest=/etc/php5/fpm/php.ini regexp='^memory_limit = .*$' replace='memory_limit = 256M'
-  notify: restart php5-fpm
+  replace: dest=/etc/php/7.0/fpm/php.ini regexp='^memory_limit = .*$' replace='memory_limit = 256M'
+  notify: restart php7.0-fpm
 
-- name: php.init - Ensure php5-fpm cgi.fix_pathinfo=0
-  lineinfile: dest=/etc/php5/fpm/php.ini regexp='^(.*)cgi.fix_pathinfo=' line=cgi.fix_pathinfo=0
-  notify: restart php5-fpm
+- name: php.ini - Ensure php7.0-fpm cgi.fix_pathinfo=0
+  lineinfile: dest=/etc/php/7.0/fpm/php.ini regexp='^(.*)cgi.fix_pathinfo=' line=cgi.fix_pathinfo=0
+  notify: restart php7.0-fpm
+
+- name: Download composer
+  get_url:
+    url: https://getcomposer.org/installer
+    dest: /tmp/installer
+
+- name: Install composer
+  shell: cat /tmp/installer | php -- --install-dir=/usr/local/bin
+  args:
+    creates: /usr/local/bin/composer
+
+- name: Rename composer.phar to composer
+  shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer
+  args:
+    creates: /usr/local/bin/composer
+
+- name: Make composer executable
+  file: 
+    path: /usr/local/bin/composer
+    mode: a+x
+    state: file
+    owner: {{remote_user}}

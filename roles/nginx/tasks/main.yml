@@ -1,4 +1,6 @@
 ---
+- apt_repository: repo='ppa:nginx/stable' state=present
+
 - name: Install nginx
   apt: name=nginx state=latest
 
@@ -12,6 +14,10 @@
 
 - name: Copy nginx general configuration
   template: src=nginx.conf dest=/etc/nginx/nginx.conf
+  notify: restart nginx
+
+- name: Copy nginx logrotate config
+  template: src=logrotate dest=/etc/logrotate.d/nginx
   notify: restart nginx
 
 - name: Create symlink for wordpress configuration

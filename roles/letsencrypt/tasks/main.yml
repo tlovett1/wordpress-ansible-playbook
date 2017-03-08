@@ -1,4 +1,6 @@
 ---
-- name: Install letsencrypt
-  git: repo=https://github.com/letsencrypt/letsencrypt.git dest=~/letsencrypt
-  
+- name: Download and install certbot
+  get_url: url=https://dl.eff.org/certbot-auto dest=/usr/local/bin/certbot-auto mode=0770
+
+- name: Add line to crontab for auto renewal
+  cron: name="cert renew" minute="0" hour="*/12" job="/usr/local/bin/certbot-auto renew" user=root

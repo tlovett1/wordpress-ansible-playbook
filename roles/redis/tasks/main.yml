@@ -1,0 +1,15 @@
+---
+- name: Add Redis source
+  apt_repository: repo='ppa:chris-lea/redis-server' state=present
+
+- name: Install redis
+  apt: name=redis-server state=latest
+  notify: rrestart redis
+
+- name: Copy redis.conf
+  template: src=redis.conf dest=/etc/redis/redis.conf
+  notify: restart redis
+
+- name: Install php redis
+  apt: name=php-redis state=latest
+  notify: restart php7.0-fpm

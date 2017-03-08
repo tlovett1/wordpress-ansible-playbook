@@ -10,6 +10,12 @@ server {
         location ~* /(?:uploads|files)/.*\.php$ {
                 deny all;
         }
+
+        location = /xmlrpc.php {
+                deny all;
+                access_log off;
+                error_log off;
+        }
  
         location / {
                 index index.php index.html index.htm;

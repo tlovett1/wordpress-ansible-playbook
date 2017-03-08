@@ -38,6 +38,12 @@ server {
 		try_files $uri $uri/ /index.php?$args;
 	}
 
+	location = /xmlrpc.php {
+		deny all;
+		access_log off;
+		error_log off;
+	}
+
 	location ~* \.(?:ico|svg|css|js|gif|jpe?g|png)$ {
 		expires 30d;
 		add_header Pragma public;

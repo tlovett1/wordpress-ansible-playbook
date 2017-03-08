@@ -1,0 +1,24 @@
+---
+- name: Install ufw package
+  apt: name=ufw state=present
+
+- name: Disable all incoming traffic by default
+  ufw: state=enabled policy=deny direction=incoming
+
+- name: Enable all outgoing traffic by default
+  ufw: state=enabled policy=allow direction=outgoing
+
+- name: Allow normal web trafic traffic
+  ufw: rule=allow port=80 proto=tcp
+
+- name: Allow ssl traffic
+  ufw: rule=allow port=443 proto=tcp
+
+- name: Allow DNS traffic on tcp
+  ufw: rule=allow port=53 proto=tcp
+
+- name: Allow DNS traffic on udp
+  ufw: rule=allow port=53 proto=udp
+
+- name: Allow ssh traffic
+  ufw: rule=allow port=22 proto=tcp

@@ -1,4 +1,4 @@
-AWS_CONFIG_FILE=/home/{{ awscli_user }}/.aws/config
+AWS_CONFIG_FILE=/home/ubuntu/.aws/config
 
 rm /tmp/db-backup-*.sql
 rm /tmp/files-backup-*.tar.gz
@@ -11,7 +11,7 @@ tar -zcvf "/tmp/files-backup-$DOW.tar.gz" /var/www/html/wordpress
 
 /usr/local/bin/aws s3 cp "/tmp/db-backup-$DOW.sql" s3://{{ aws_bucket }}/{{ server_hostname }}/
 
-/usr/local/bin/aws s3 cp "/tmp/files-backup-$DOW.tar.gz" s3://{{ awscli_bucket }}/{{ server_hostname }}/
+/usr/local/bin/aws s3 cp "/tmp/files-backup-$DOW.tar.gz" s3://{{ aws_bucket }}/{{ server_hostname }}/
 
 rm /tmp/db-backup-*.sql
 rm /tmp/files-backup-*.tar.gz

@@ -11,7 +11,7 @@
     - restart nginx
 
 - name: restart php-fpm
-  shell: service php5-fpm restart
+  shell: service php7.0-fpm restart
 
 - name: restart nginx
   service: name=nginx state=restarted enabled=yes

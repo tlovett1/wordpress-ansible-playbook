@@ -28,7 +28,7 @@
 - name: Copy WordPress config file
   template: src=wp-config.php dest=/var/www/html/wordpress/ force=no
 
-- name: Copy WordPress memcached drop in
+- name: Copy WordPress redis drop in
   template: src=object-cache.php dest=/var/www/html/wordpress/wp-content
 
 - name: Copy Batcache drop in
@@ -44,7 +44,7 @@
   command: mv /tmp/wp-cli.phar /usr/local/bin/wp creates=/usr/local/bin/wp
 
 - name: Make WP-CLI executable
-  file: path=/usr/local/bin/wp owner=ubuntu group=wordpress mode=770
+  file: path=/usr/local/bin/wp owner={{remote_user}} group=wordpress mode=770
 
 - name: Start php-fpm Service
-  service: name=php5-fpm state=started enabled=yes
+  service: name=php7.0-fpm state=started enabled=yes

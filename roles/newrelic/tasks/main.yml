@@ -61,7 +61,7 @@
 - name: Configure New Relic PHP Agent
   template:
     src: newrelic.ini
-    dest: "/etc/php5/fpm/conf.d/newrelic.ini"
+    dest: "/etc/php/7.0/fpm/conf.d/newrelic.ini"
     group: root
     owner: root
     mode: 0640

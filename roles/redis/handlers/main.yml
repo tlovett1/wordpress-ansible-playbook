@@ -1,0 +1,6 @@
+---
+- name: restart php7.0-fpm
+  shell: service php7.0-fpm restart
+
+- name: restart redis
+  service: name=redis-server state=restarted enabled=yes

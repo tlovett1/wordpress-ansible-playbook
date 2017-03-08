@@ -6,13 +6,15 @@
 
   roles:
     - common
+    - ufw
     - mariadb
     - nginx
     - postfix
     - php-fpm
-    - memcached
+    - redis
     - wordpress
     - webgrind
-    #- backup
-    #- letsencrypt
-    #- sftp
+    - backup
+    - sftp
+    - newrelic
+    - letsencrypt
